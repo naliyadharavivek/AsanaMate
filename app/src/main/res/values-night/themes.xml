@@ -18,6 +18,11 @@
     <style name="text_login_page" parent="Widget.AppCompat.TextView">
         <item name="android:textColorHint">@color/white</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/_15sdp</item>
+    </style>
+
+    <style name="textColor" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/white</item>
     </style>
 
 </resources>
