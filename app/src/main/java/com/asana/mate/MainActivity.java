@@ -81,10 +81,7 @@ public class MainActivity extends AppCompatActivity {
                     Snackbar.make(view, "login successful", Snackbar.LENGTH_SHORT).show();
                 } else if (email.getText().toString().equals("") || !email.getText().toString().matches(emailPattern)) {
                     email.setError("Enter valid email");
-                } /*else if (!email.getText().toString().matches(emailPattern)) {
-                    email.setError("Enter valid email");
-                }*/
-                else if (password.getText().toString().equals("")) {
+                } else if (password.getText().toString().equals("") || !password.getText().toString().matches(passwordPattern)) {
                     password.setError(passwordError);
                 }
             }
