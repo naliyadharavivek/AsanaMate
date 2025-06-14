@@ -162,8 +162,8 @@ tools:context=".MainActivity">
 
                 <ImageButton
                 android:id="@+id/btnGoogle"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="@dimen/_48sdp"
+                android:layout_height="@dimen/_48sdp"
                 android:backgroundTint="@android:color/transparent"
                 android:contentDescription="Google"
                 android:padding="8dp"
@@ -192,8 +192,8 @@ tools:context=".MainActivity">
 
                 <ImageButton
                 android:id="@+id/btnFacebook"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="@dimen/_48sdp"
+                android:layout_height="@dimen/_48sdp"
                 android:layout_weight="1"
                 android:backgroundTint="@android:color/transparent"
                 android:contentDescription="Facebook"
