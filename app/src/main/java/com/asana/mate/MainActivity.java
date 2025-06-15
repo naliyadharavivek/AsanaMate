@@ -1,12 +1,12 @@
 package com.asana.mate;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -77,11 +77,16 @@ public class MainActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (email.getText().toString().matches(emailPattern) && password.getText().toString().matches(passwordPattern)) {
+
+                if (email.getText().toString().trim().matches(emailPattern) && password.getText().toString().matches(passwordPattern)) {
                     Snackbar.make(view, "login successful", Snackbar.LENGTH_SHORT).show();
-                } else if (email.getText().toString().equals("") || !email.getText().toString().matches(emailPattern)) {
+                }
+
+                else if (email.getText().toString().trim().equals("") || !email.getText().toString().trim().matches(emailPattern)) {
                     email.setError("Enter valid email");
-                } else if (password.getText().toString().equals("") || !password.getText().toString().matches(passwordPattern)) {
+                }
+
+                else if (password.getText().toString().equals("") || !password.getText().toString().matches(passwordPattern)) {
                     password.setError(passwordError);
                 }
             }
@@ -90,7 +95,10 @@ public class MainActivity extends AppCompatActivity {
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "signup", Snackbar.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
+                startActivity(intent);
+
             }
         });
 
