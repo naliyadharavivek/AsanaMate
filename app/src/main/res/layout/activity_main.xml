@@ -40,22 +40,16 @@
         <Button
             android:id="@+id/login_button"
             style="@style/button_login"
-            android:minHeight="@dimen/_48sdp"
             android:text="LOGIN" />
 
         <TextView
             android:id="@+id/forgot_password_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            style="@style/textView_login"
             android:layout_marginTop="@dimen/_10sdp"
             android:clickable="true"
             android:focusable="true"
             android:text="Forgot Password?"
-            android:textColor="#858A8A"
-            android:textSize="@dimen/_11sdp"
-            android:textStyle="bold"
-            tools:ignore="TouchTargetSizeCheck,TextSizeCheck" />
+            android:textColor="#858A8A" />
 
         <LinearLayout
             android:layout_width="wrap_content"

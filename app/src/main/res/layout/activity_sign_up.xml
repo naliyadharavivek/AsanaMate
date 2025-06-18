@@ -18,35 +18,36 @@
             style="@style/logoAsanamate" />
 
         <TextView
-            android:id="@+id/sign_up_text"
+            android:id="@+id/signup_text"
             style="@style/text_20_bold"
             android:text="Sign Up" />
 
         <EditText
-            android:id="@+id/name_box"
+            android:id="@+id/signup_name_box"
             style="@style/editText_login"
             android:hint="Name"
             android:inputType="textPersonName" />
 
         <EditText
-            android:id="@+id/email_box_signup"
+            android:id="@+id/signup_email_box"
             style="@style/editText_login"
             android:hint="Email"
             android:inputType="textEmailAddress" />
 
         <EditText
-            android:id="@+id/password_box_sign_up"
+            android:id="@+id/signup_password_box"
             style="@style/editText_login"
             android:hint="Password"
             android:inputType="textPassword" />
 
         <EditText
-            android:id="@+id/confirmpassword_box_sign_up"
+            android:id="@+id/signup_confirmpassword_box"
             style="@style/editText_login"
             android:hint="Confirm Password"
             android:inputType="textPassword" />
 
         <RadioGroup
+            android:id="@+id/signup_gender"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -66,21 +67,13 @@
         </RadioGroup>
 
         <Spinner
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_21sdp"
-            android:layout_marginTop="@dimen/_15sdp"
-            android:background="@drawable/custom_border"
-            android:minHeight="@dimen/_48sdp" />
+            android:id="@+id/signup_country"
+            style="@style/spinner" />
 
         <CheckBox
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginHorizontal="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_15sdp"
-            android:text="I accept all terms &amp; conditions"
-            android:textSize="@dimen/_15sdp" />
+            android:id="@+id/terms_and_conditions"
+            style="@style/checkBox"
+            android:text="I accept all terms &amp; conditions" />
 
         <Button
             android:id="@+id/signup_button"

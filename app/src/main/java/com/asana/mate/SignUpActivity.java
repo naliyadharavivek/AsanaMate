@@ -2,8 +2,12 @@ package com.asana.mate;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.RadioGroup;
+import android.widget.Spinner;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +16,9 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.snackbar.Snackbar;
+
+import java.util.ArrayList;
+import java.util.Locale;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -25,9 +32,16 @@ public class SignUpActivity extends AppCompatActivity {
             "\n→ Maximum : 20 characters" +
             "\n→ No spaces" +
             "\n→ A special character from this set : \n     ! @ # $ % & * -";
+    ArrayList<String> countryNames = new ArrayList<>();
 
+
+
+
+    EditText nameSignup, emailSignup, passwordSignup, confirmPasswordSignup ;
+    RadioGroup gender;
+    Spinner country;
+    CheckBox terms;
     Button signup;
-    EditText emailSignup,passwordSignup,confirmPasswordSignup, nameSignup;
 
 
     @Override
@@ -41,11 +55,26 @@ public class SignUpActivity extends AppCompatActivity {
             return insets;
         });
 
+        nameSignup = findViewById(R.id.signup_name_box);
+        emailSignup = findViewById(R.id.signup_email_box);
+        passwordSignup = findViewById(R.id.signup_password_box);
+        confirmPasswordSignup = findViewById(R.id.signup_confirmpassword_box);
+        gender = findViewById(R.id.signup_gender);
+        country = findViewById(R.id.signup_country);
+        terms = findViewById(R.id.terms_and_conditions);
         signup = findViewById(R.id.signup_button);
-        emailSignup = findViewById(R.id.email_box_signup);
-        passwordSignup = findViewById(R.id.password_box_sign_up);
-        confirmPasswordSignup = findViewById(R.id.confirmpassword_box_sign_up);
-        nameSignup = findViewById(R.id.name_box);
+
+        String[] countryCodes = Locale.getISOCountries();
+        for (String countryCode : countryCodes) {
+            Locale countryLocale = new Locale("", countryCode);
+            countryNames.add(countryLocale.getDisplayCountry());
+        }
+
+        countryNames.add(0, "Choose your country");
+
+        ArrayAdapter countryList = new ArrayAdapter<>(SignUpActivity.this, android.R.layout.simple_list_item_1, countryNames);
+        countryList.setDropDownViewResource(android.R.layout.simple_list_item_multiple_choice);
+        country.setAdapter(countryList);
 
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,6 +93,12 @@ public class SignUpActivity extends AppCompatActivity {
                     confirmPasswordSignup.setError("Confirm Password can not be blank");
                 } else if (!confirmPasswordSignup.getText().toString().trim().equals(passwordSignup.getText().toString().trim())) {
                     confirmPasswordSignup.setError("Passwords do not match");
+                } else if (gender.getCheckedRadioButtonId() == -1) {
+                    Snackbar.make(view, "Gender is required", Snackbar.LENGTH_SHORT).show();
+                } else if (country.getSelectedItemPosition()<=0) {
+                    Snackbar.make(view, "Please select a country", Snackbar.LENGTH_SHORT).show();
+                } else if (!terms.isChecked()) {
+                    Snackbar.make(view, "Please accept terms & conditions", Snackbar.LENGTH_SHORT).show();
                 } else {
                     Snackbar.make(view, "Signup successful", Snackbar.LENGTH_SHORT).show();
                 }
