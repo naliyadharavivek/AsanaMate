@@ -15,83 +15,48 @@
 
         <ImageView
             android:id="@+id/sign_in_logo"
-            android:layout_width="@dimen/_140sdp"
-            android:layout_height="@dimen/_140sdp"
-            android:layout_gravity="center_horizontal"
-            android:src="@drawable/asanamate_logo1" />
+            style="@style/logoAsanamate" />
 
         <TextView
             android:id="@+id/sign_up_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             style="@style/text_20_bold"
-            android:layout_marginVertical="@dimen/_1sdp"
-            android:gravity="center"
             android:text="Sign Up" />
 
         <EditText
             android:id="@+id/name_box"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_15sdp"
-            android:background="@drawable/custom_border"
+            style="@style/editText_login"
             android:hint="Name"
-            android:textColorHint="@color/white"
-            android:inputType="textPersonName"
-            android:minHeight="@dimen/_48sdp"
-            android:padding="@dimen/_10sdp" />
+            android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/email_box_signup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_15sdp"
-            android:background="@drawable/custom_border"
+            style="@style/editText_login"
             android:hint="Email"
-            android:textColorHint="@color/white"
-            android:inputType="textEmailAddress"
-            android:minHeight="@dimen/_48sdp"
-            android:padding="@dimen/_10sdp" />
+            android:inputType="textEmailAddress" />
 
         <EditText
             android:id="@+id/password_box_sign_up"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_15sdp"
-            android:background="@drawable/custom_border"
+            style="@style/editText_login"
             android:hint="Password"
-            android:textColorHint="@color/white"
-            android:inputType="textPassword"
-            android:minHeight="@dimen/_48sdp"
-            android:padding="@dimen/_10sdp" />
+            android:inputType="textPassword" />
 
         <EditText
             android:id="@+id/confirmpassword_box_sign_up"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_15sdp"
-            android:background="@drawable/custom_border"
+            style="@style/editText_login"
             android:hint="Confirm Password"
-            android:textColorHint="@color/white"
-            android:inputType="textPassword"
-            android:minHeight="@dimen/_48sdp"
-            android:padding="@dimen/_10sdp" />
+            android:inputType="textPassword" />
 
         <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_20sdp"
             android:layout_gravity="center"
-            android:orientation="horizontal"
-            android:layout_marginTop="@dimen/_15sdp">
+            android:layout_marginHorizontal="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:orientation="horizontal">
 
             <RadioButton
-                android:layout_marginRight="@dimen/_50sdp"
                 style="@style/RadioButton"
+                android:layout_marginRight="@dimen/_50sdp"
                 android:text="Male" />
 
             <RadioButton
@@ -103,33 +68,24 @@
         <Spinner
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/custom_border"
-            android:minHeight="@dimen/_48sdp"
             android:layout_marginHorizontal="@dimen/_21sdp"
             android:layout_marginTop="@dimen/_15sdp"
-            />
+            android:background="@drawable/custom_border"
+            android:minHeight="@dimen/_48sdp" />
 
         <CheckBox
-            android:layout_gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginHorizontal="@dimen/_20sdp"
             android:layout_marginTop="@dimen/_15sdp"
             android:text="I accept all terms &amp; conditions"
-            android:textSize="@dimen/_15sdp"/>
+            android:textSize="@dimen/_15sdp" />
 
         <Button
             android:id="@+id/signup_button"
-            android:layout_width="@dimen/_140sdp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginHorizontal="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_15sdp"
-            android:background="@drawable/custom_border"
-            android:minHeight="@dimen/_48sdp"
-            android:text="sign up"
-            android:textAllCaps="true"
-            android:textSize="@dimen/_16sdp" />
+            style="@style/button_login"
+            android:text="sign up" />
 
     </LinearLayout>
 

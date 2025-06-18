@@ -23,47 +23,25 @@
         <TextView
             android:id="@+id/sign_in_text"
             style="@style/text_20_bold"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/_1sdp"
-            android:gravity="center"
             android:text="Sign In" />
 
         <EditText
             android:id="@+id/email_box_login"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_15sdp"
-            android:background="@drawable/custom_border"
+            style="@style/editText_login"
             android:hint="Email"
-            android:inputType="textEmailAddress"
-            android:minHeight="@dimen/_48sdp"
-            android:padding="@dimen/_10sdp" />
+            android:inputType="textEmailAddress" />
 
         <EditText
             android:id="@+id/password_box"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_15sdp"
-            android:background="@drawable/custom_border"
+            style="@style/editText_login"
             android:hint="Password"
-            android:inputType="textPassword"
-            android:minHeight="@dimen/_48sdp"
-            android:padding="@dimen/_10sdp" />
+            android:inputType="textPassword" />
 
         <Button
             android:id="@+id/login_button"
-            android:layout_width="@dimen/_140sdp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginHorizontal="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_15sdp"
-            android:background="@drawable/custom_border"
+            style="@style/button_login"
             android:minHeight="@dimen/_48sdp"
-            android:text="LOGIN"
-            android:textSize="@dimen/_16sdp" />
+            android:text="LOGIN" />
 
         <TextView
             android:id="@+id/forgot_password_text"
@@ -88,24 +66,18 @@
 
             <TextView
                 android:id="@+id/no_account_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Don't have an account?"
-                android:textSize="@dimen/_11sdp"
-                tools:ignore="TextSizeCheck" />
+                style="@style/textView_login"
+                android:text="Don't have an account?" />
 
             <TextView
                 android:id="@+id/signUpText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/textView_login"
+                android:textStyle="bold"
                 android:layout_marginLeft="@dimen/_30sdp"
                 android:clickable="true"
                 android:focusable="true"
                 android:text="Sign Up"
-                android:textColor="#2196F3"
-                android:textSize="@dimen/_11sdp"
-                android:textStyle="bold"
-                tools:ignore="TouchTargetSizeCheck,TextSizeCheck" />
+                android:textColor="#2196F3" />
 
         </LinearLayout>
 
@@ -141,37 +113,21 @@
 
         <TextView
             android:id="@+id/signup_with_social_network"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:baselineAligned="false"
-            android:gravity="center"
+            style="@style/textView_login"
             android:text="Signup with Social Networks"
             android:textSize="@dimen/_11sdp"
             tools:ignore="TextSizeCheck" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content">
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:spacing="@dimen/_16sdp">
+                style="@style/linearLayout_continuewith">
 
                 <ImageButton
                     android:id="@+id/btnGoogle"
-                    android:layout_width="@dimen/_48sdp"
-                    android:layout_height="@dimen/_48sdp"
-                    android:backgroundTint="@android:color/transparent"
-                    android:contentDescription="Google"
-                    android:padding="@dimen/_8sdp"
-                    android:scaleType="centerInside"
+                    style="@style/imageButton_continuewith"
                     android:src="@drawable/google_logo" />
 
                 <TextView
@@ -184,23 +140,11 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:spacing="@dimen/_16sdp">
+                style="@style/linearLayout_continuewith">
 
                 <ImageButton
                     android:id="@+id/btnFacebook"
-                    android:layout_width="@dimen/_48sdp"
-                    android:layout_height="@dimen/_48sdp"
-                    android:layout_weight="1"
-                    android:backgroundTint="@android:color/transparent"
-                    android:contentDescription="Facebook"
-                    android:padding="@dimen/_8sdp"
-                    android:scaleType="centerInside"
+                    style="@style/imageButton_continuewith"
                     android:src="@drawable/fb_logo" />
 
                 <TextView

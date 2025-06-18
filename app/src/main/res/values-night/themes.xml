@@ -5,6 +5,13 @@
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
     </style>
 
+    <style name="logoAsanamate">
+        <item name="android:src">@drawable/asanamate_logo1</item>
+        <item name="android:layout_width">@dimen/_140sdp</item>
+        <item name="android:layout_height">@dimen/_140sdp</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
     <style name="RadioButton" parent="Widget.AppCompat.CompoundButton.RadioButton">
         <item name="buttonTint">@color/white</item>
         <item name="android:layout_width">@dimen/_20sdp</item>
@@ -15,9 +22,35 @@
     </style>
 
     <style name="text_20_bold">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/_20sdp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/blue</item>
+        <item name="android:layout_marginVertical">@dimen/_1sdp</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+    <style name="editText_login" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginHorizontal">@dimen/_20sdp</item>
+        <item name="android:layout_marginTop">@dimen/_15sdp</item>
+        <item name="android:background">@drawable/custom_border</item>
+        <item name="android:minHeight">@dimen/_48sdp</item>
+        <item name="android:padding">@dimen/_10sdp</item>
+        <item name="android:textColorHint">@color/white</item>
+    </style>
+
+    <style name="button_login">
+        <item name="android:layout_width">@dimen/_140sdp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:minHeight">@dimen/_48sdp</item>
+        <item name="marginHorizontal">@dimen/_20sdp</item>
+        <item name="android:layout_marginTop">@dimen/_15sdp</item>
+        <item name="android:textSize">@dimen/_16sdp</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
 </resources>
