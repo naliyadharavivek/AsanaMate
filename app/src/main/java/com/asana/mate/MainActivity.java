@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         google = findViewById(R.id.btnGoogle);
         google1 = findViewById(R.id.google_logo_text);
         facebook = findViewById(R.id.btnFacebook);
-        email = findViewById(R.id.email_box);
+        email = findViewById(R.id.email_box_login);
         password = findViewById(R.id.password_box);
 
 
