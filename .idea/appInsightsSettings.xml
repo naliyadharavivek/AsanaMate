@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.asana.mate" />
+                  <option name="mobileSdkAppId" value="1:626965884706:android:9a12449e8bd7c174bb7f7b" />
+                  <option name="projectId" value="asanamate-6850b" />
+                  <option name="projectNumber" value="626965884706" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

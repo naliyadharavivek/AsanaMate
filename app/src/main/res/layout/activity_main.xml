@@ -15,6 +15,7 @@
 
         <ImageView
             android:id="@+id/sign_in_logo"
+            android:contentDescription="@string/logo"
             android:layout_width="@dimen/_140sdp"
             android:layout_height="@dimen/_140sdp"
             android:layout_gravity="center_horizontal"
@@ -23,24 +24,54 @@
         <TextView
             android:id="@+id/sign_in_text"
             style="@style/text_20_bold"
-            android:text="Sign In" />
+            android:text="@string/sign_in" />
+
 
         <EditText
             android:id="@+id/email_box_login"
             style="@style/editText_login"
-            android:hint="Email"
+            android:hint="@string/email"
             android:inputType="textEmailAddress" />
 
-        <EditText
-            android:id="@+id/password_box"
-            style="@style/editText_login"
-            android:hint="Password"
-            android:inputType="textPassword" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:layout_marginTop="@dimen/_15sdp"
+                android:id="@+id/password_box"
+                style="@style/editText_login"
+                android:hint="@string/password"
+                android:inputType="textPassword" />
+
+            <ImageView
+                android:id="@+id/signin_hide"
+                android:visibility="invisible"
+                android:layout_marginTop="@dimen/_7sdp"
+                android:layout_gravity="center_vertical|end"
+                android:padding="@dimen/_2sdp"
+                android:layout_marginRight="@dimen/_40sdp"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:src="@drawable/hide"/>
+
+            <ImageView
+                android:id="@+id/signin_view"
+                android:layout_marginTop="@dimen/_7sdp"
+                android:layout_gravity="center_vertical|end"
+                android:padding="@dimen/_2sdp"
+                android:layout_marginRight="@dimen/_40sdp"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:src="@drawable/view"/>
+
+
+        </FrameLayout>
 
         <Button
             android:id="@+id/login_button"
             style="@style/button_login"
-            android:text="LOGIN" />
+            android:text="@string/login" />
 
         <TextView
             android:id="@+id/forgot_password_text"
@@ -48,7 +79,7 @@
             android:layout_marginTop="@dimen/_10sdp"
             android:clickable="true"
             android:focusable="true"
-            android:text="Forgot Password?"
+            android:text="@string/forgot_password"
             android:textColor="#858A8A" />
 
         <LinearLayout
@@ -61,16 +92,16 @@
             <TextView
                 android:id="@+id/no_account_text"
                 style="@style/textView_login"
-                android:text="Don't have an account?" />
+                android:text="@string/don_t_have_an_account" />
 
             <TextView
                 android:id="@+id/signUpText"
                 style="@style/textView_login"
                 android:textStyle="bold"
-                android:layout_marginLeft="@dimen/_30sdp"
+                android:layout_marginStart="@dimen/_30sdp"
                 android:clickable="true"
                 android:focusable="true"
-                android:text="Sign Up"
+                android:text="@string/sign_up"
                 android:textColor="#2196F3" />
 
         </LinearLayout>
@@ -94,7 +125,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="@dimen/_12sdp"
-                android:text="OR"
+                android:text="@string/or"
                 android:textSize="@dimen/_14sdp" />
 
             <View
@@ -108,7 +139,7 @@
         <TextView
             android:id="@+id/signup_with_social_network"
             style="@style/textView_login"
-            android:text="Signup with Social Networks"
+            android:text="@string/signup_with_social_networks"
             android:textSize="@dimen/_11sdp"
             tools:ignore="TextSizeCheck" />
 
@@ -122,14 +153,15 @@
                 <ImageButton
                     android:id="@+id/btnGoogle"
                     style="@style/imageButton_continuewith"
-                    android:src="@drawable/google_logo" />
+                    android:src="@drawable/google_logo"
+                    android:contentDescription="@string/google" />
 
                 <TextView
                     android:id="@+id/google_logo_text"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="Google" />
+                    android:text="@string/google" />
 
             </LinearLayout>
 
@@ -139,7 +171,8 @@
                 <ImageButton
                     android:id="@+id/btnFacebook"
                     style="@style/imageButton_continuewith"
-                    android:src="@drawable/fb_logo" />
+                    android:src="@drawable/fb_logo"
+                    android:contentDescription="Facebook" />
 
                 <TextView
                     android:id="@+id/facebook_logo_text"

@@ -1,27 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Material Design Colors -->
-    <color name="primary">#1DB954</color>
-    <color name="primary_dark">#1AA34A</color>
-    <color name="primary_light">#4DCB7A</color>
-    <color name="accent">#1ED760</color>
-    
-    <!-- Text Colors -->
-    <color name="text_primary">#FFFFFF</color>
-    <color name="text_secondary">#B3B3B3</color>
-    <color name="text_hint">#757575</color>
-    
-    <!-- Background Colors -->
-    <color name="background">#121212</color>
-    <color name="surface">#1E1E1E</color>
-    <color name="error">#CF6679</color>
-    
-    <!-- Input Colors -->
-    <color name="input_background">#2C2C2C</color>
-    <color name="input_stroke">#404040</color>
-    <color name="input_focused">@color/primary</color>
-    
-    <!-- Button Colors -->
-    <color name="button_text">#FFFFFF</color>
-    <color name="button_disabled">#757575</color>
-</resources> 
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="off_white">#EEEEEE</color>
+    <color name="blue">#596FA0</color>
+    <color name="black_gray">#525353</color>
+    <color name="off_white_1">#D9D8D8</color>
+    <color name="blue_dark">#3D5890</color>
+    <color name="green">#24A902</color>
+    <color name="lavender">#8692F7</color>
+</resources>

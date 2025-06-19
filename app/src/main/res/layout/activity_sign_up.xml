@@ -28,23 +28,79 @@
             android:hint="Name"
             android:inputType="textPersonName" />
 
+
         <EditText
             android:id="@+id/signup_email_box"
             style="@style/editText_login"
             android:hint="Email"
             android:inputType="textEmailAddress" />
 
-        <EditText
-            android:id="@+id/signup_password_box"
-            style="@style/editText_login"
-            android:hint="Password"
-            android:inputType="textPassword" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/signup_confirmpassword_box"
-            style="@style/editText_login"
-            android:hint="Confirm Password"
-            android:inputType="textPassword" />
+            <EditText
+                android:id="@+id/signup_password_box"
+                style="@style/editText_login"
+                android:hint="Password"
+                android:inputType="textPassword" />
+
+            <ImageView
+                android:id="@+id/signup_hide"
+                android:visibility="invisible"
+                android:layout_marginTop="@dimen/_7sdp"
+                android:layout_gravity="center_vertical|end"
+                android:padding="@dimen/_2sdp"
+                android:layout_marginRight="@dimen/_40sdp"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:src="@drawable/hide"/>
+
+            <ImageView
+                android:id="@+id/signup_view"
+                android:layout_marginTop="@dimen/_7sdp"
+                android:layout_gravity="center_vertical|end"
+                android:padding="@dimen/_2sdp"
+                android:layout_marginRight="@dimen/_40sdp"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:src="@drawable/view"/>
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/signup_confirmpassword_box"
+                style="@style/editText_login"
+                android:hint="Confirm Password"
+                android:inputType="textPassword" />
+
+            <ImageView
+                android:id="@+id/signup_confirm_hide"
+                android:visibility="invisible"
+                android:layout_marginTop="@dimen/_7sdp"
+                android:layout_gravity="center_vertical|end"
+                android:padding="@dimen/_2sdp"
+                android:layout_marginRight="@dimen/_40sdp"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:src="@drawable/hide"/>
+
+            <ImageView
+                android:id="@+id/signup_confirm_view"
+                android:layout_marginTop="@dimen/_7sdp"
+                android:layout_gravity="center_vertical|end"
+                android:padding="@dimen/_2sdp"
+                android:layout_marginRight="@dimen/_40sdp"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:src="@drawable/view"/>
+
+        </FrameLayout>
+
 
         <RadioGroup
             android:id="@+id/signup_gender"
