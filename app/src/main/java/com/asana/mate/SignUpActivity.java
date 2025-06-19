@@ -8,6 +8,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -100,7 +101,8 @@ public class SignUpActivity extends AppCompatActivity {
                 } else if (!terms.isChecked()) {
                     Snackbar.make(view, "Please accept terms & conditions", Snackbar.LENGTH_SHORT).show();
                 } else {
-                    Snackbar.make(view, "Signup successful", Snackbar.LENGTH_SHORT).show();
+                    Toast.makeText(SignUpActivity.this, "Signup successful", Toast.LENGTH_SHORT).show();
+                    onBackPressed();
                 }
             }
         });
