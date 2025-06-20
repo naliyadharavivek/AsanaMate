@@ -16,6 +16,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -23,8 +24,11 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.Firebase;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -42,8 +46,6 @@ public class SignUpActivity extends AppCompatActivity {
             "\n→ No spaces" +
             "\n→ A special character from this set : \n     ! @ # $ % & * -";
     ArrayList<String> countryNames = new ArrayList<>();
-
-
 
 
     EditText nameSignup, emailSignup, passwordSignup, confirmPasswordSignup ;
@@ -148,11 +150,52 @@ public class SignUpActivity extends AppCompatActivity {
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (nameSignup.getText().toString().isEmpty()) {
+
+                if (!nameSignup.getText().toString().isEmpty() && emailSignup.getText().toString().trim().matches(emailPattern) && !emailSignup.getText().toString().trim().isEmpty() && passwordSignup.getText().toString().trim().matches(passwordPattern) && !passwordSignup.getText().toString().trim().isEmpty() && !confirmPasswordSignup.getText().toString().trim().isEmpty() && confirmPasswordSignup.getText().toString().trim().equals(passwordSignup.getText().toString().trim()) && !(genderSignup.getCheckedRadioButtonId() == -1) && !(countrySignup.getSelectedItemPosition()<=0) && terms.isChecked()) {
+
+                    signupDatabase = FirebaseDatabase.getInstance();
+                    reference = signupDatabase.getReference("users");
+
+                    reference.orderByChild("email").equalTo(emailSignup.getText().toString().replace(".", "_")).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.exists()) {
+                                emailSignup.setError("Email already exists!!");
+                            } else {
+                                Integer selectedGenderID = genderSignup.getCheckedRadioButtonId();
+
+                                String name = nameSignup.getText().toString();
+                                String email = emailSignup.getText().toString().replace(".", "_");
+                                String password = passwordSignup.getText().toString();
+                                String confirmPassword = confirmPasswordSignup.getText().toString();
+                                String country = countrySignup.getSelectedItem().toString();
+                                String gender = null;
+
+                                if (selectedGenderID != -1) {
+                                    RadioButton selectedGender = findViewById(selectedGenderID);
+                                    gender = selectedGender.getText().toString();
+                                }
+
+                                HelperClass helperClass = new HelperClass(name, email, password, confirmPassword, country, gender);
+                                reference.child(name).setValue(helperClass);
+
+
+                                Toast.makeText(SignUpActivity.this, "Signup successful", Toast.LENGTH_SHORT).show();
+                                onBackPressed();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                } else if (nameSignup.getText().toString().isEmpty()) {
                     nameSignup.setError("Name can not be blank");
                 } else if (!emailSignup.getText().toString().trim().matches(emailPattern)) {
                     emailSignup.setError("Enter Valid Email");
-                } else if (emailSignup.getText().toString().trim().isEmpty()) {
+                }
+                else if (emailSignup.getText().toString().trim().isEmpty()) {
                     emailSignup.setError("Email can not be blank");
                 } else if (!passwordSignup.getText().toString().trim().matches(passwordPattern)) {
                     passwordSignup.setError(passwordError);
@@ -168,32 +211,6 @@ public class SignUpActivity extends AppCompatActivity {
                     Snackbar.make(view, "Please select a country", Snackbar.LENGTH_SHORT).show();
                 } else if (!terms.isChecked()) {
                     Snackbar.make(view, "Please accept terms & conditions", Snackbar.LENGTH_SHORT).show();
-                } else {
-
-                    signupDatabase = FirebaseDatabase.getInstance();
-                    reference = signupDatabase.getReference("users");
-
-                    Integer selectedGenderID = genderSignup.getCheckedRadioButtonId();
-
-                    String name = nameSignup.getText().toString();
-                    String email = emailSignup.getText().toString().replace(".","_");
-                    String password = passwordSignup.getText().toString();
-                    String confirmPassword = confirmPasswordSignup.getText().toString();
-                    String country = countrySignup.getSelectedItem().toString();
-                    String gender = null;
-
-                    if (selectedGenderID != -1) {
-                        RadioButton selectedGender = findViewById(selectedGenderID);
-                        gender = selectedGender.getText().toString();
-                    }
-
-                    HelperClass helperClass = new HelperClass(name, email, password, confirmPassword, country, gender);
-                    reference.child(name).setValue(helperClass);
-
-
-
-                    Toast.makeText(SignUpActivity.this, "Signup successful", Toast.LENGTH_SHORT).show();
-                    onBackPressed();
                 }
             }
         });

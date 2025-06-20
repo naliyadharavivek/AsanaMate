@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "626965884706",
+    "project_id": "asanamate-6850b",
+    "storage_bucket": "asanamate-6850b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:626965884706:android:9a12449e8bd7c174bb7f7b",
+        "android_client_info": {
+          "package_name": "com.asana.mate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "626965884706-jng0nft39ru9uul5l1f5pmldek0tumpb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.asana.mate",
+            "certificate_hash": "d3e245763a8b14a3036cd6250dd80d2d5567d38b"
+          }
+        },
+        {
+          "client_id": "626965884706-nlqkf4iihptrfu0ra4e4r7l66h7alhh0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2ycjWqCrG4PmhEuPNEoAxGtflEYld-Ao"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "626965884706-nlqkf4iihptrfu0ra4e4r7l66h7alhh0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
