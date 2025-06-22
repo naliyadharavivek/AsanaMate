@@ -37,14 +37,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     String passwordPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%&*\\-])(?=\\S+$).{8,20}$";
-    String passwordError = "Password must contain " +
-            "\n→ One digit" +
-            "\n→ One lowercase letter" +
-            "\n→ One uppercase letter" +
-            "\n→ Minimum : 8 characters" +
-            "\n→ Maximum : 20 characters" +
-            "\n→ No spaces" +
-            "\n→ A special character from this set : \n     ! @ # $ % & * -";
+    String passwordError;
     ArrayList<String> countryNames = new ArrayList<>();
 
 
@@ -56,6 +49,17 @@ public class SignUpActivity extends AppCompatActivity {
     ImageView showPassword, hidePassword, showConfirmPassword, hideConfirmPassword;
     FirebaseDatabase signupDatabase;
     DatabaseReference reference;
+
+    public SignUpActivity() {
+        passwordError = "Password must contain " +
+                "\n→ One digit" +
+                "\n→ One lowercase letter" +
+                "\n→ One uppercase letter" +
+                "\n→ Minimum : 8 characters" +
+                "\n→ Maximum : 20 characters" +
+                "\n→ No spaces" +
+                "\n→ A special character from this set : \n     ! @ # $ % & * -";
+    }
 
 
     @Override
@@ -113,37 +117,37 @@ public class SignUpActivity extends AppCompatActivity {
 
         showPassword.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 passwordSignup.setTransformationMethod(null);
-                showPassword.setVisibility(v.INVISIBLE);
-                hidePassword.setVisibility(v.VISIBLE);
+                showPassword.setVisibility(View.INVISIBLE);
+                hidePassword.setVisibility(View.VISIBLE);
             }
         });
 
         hidePassword.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 passwordSignup.setTransformationMethod(new PasswordTransformationMethod());
-                showPassword.setVisibility(v.VISIBLE);
-                hidePassword.setVisibility(v.INVISIBLE);
+                showPassword.setVisibility(View.VISIBLE);
+                hidePassword.setVisibility(View.INVISIBLE);
             }
         });
 
         showConfirmPassword.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 confirmPasswordSignup.setTransformationMethod(null);
-                showConfirmPassword.setVisibility(v.INVISIBLE);
-                hideConfirmPassword.setVisibility(v.VISIBLE);
+                showConfirmPassword.setVisibility(View.INVISIBLE);
+                hideConfirmPassword.setVisibility(View.VISIBLE);
             }
         });
 
         hideConfirmPassword.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 confirmPasswordSignup.setTransformationMethod(new PasswordTransformationMethod());
-                showConfirmPassword.setVisibility(v.VISIBLE);
-                hideConfirmPassword.setVisibility(v.INVISIBLE);
+                showConfirmPassword.setVisibility(View.VISIBLE);
+                hideConfirmPassword.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -176,7 +180,7 @@ public class SignUpActivity extends AppCompatActivity {
                                     gender = selectedGender.getText().toString();
                                 }
 
-                                HelperClass helperClass = new HelperClass(name, email, password, confirmPassword, country, gender);
+                                HelperClass helperClass = new HelperClass(name, email, password, confirmPassword, gender, country);
                                 reference.child(name).setValue(helperClass);
 
 

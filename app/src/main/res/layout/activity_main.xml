@@ -18,7 +18,7 @@
             android:contentDescription="@string/logo"
             android:layout_width="@dimen/_140sdp"
             android:layout_height="@dimen/_140sdp"
-            android:layout_gravity="center_horizontal"
+            android:layout_gravity="center"
             android:src="@drawable/asanamate_logo1" />
 
         <TextView

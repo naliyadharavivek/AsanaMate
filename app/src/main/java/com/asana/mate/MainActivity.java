@@ -1,16 +1,16 @@
 package com.asana.mate;
 
-import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import androidx.appcompat.widget.Toolbar;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -20,7 +20,6 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -41,18 +40,59 @@ public class MainActivity extends AppCompatActivity {
     TextView signup,forgetPassword,google1;
     EditText emailLogin,passwordLogin;
     ImageView showPassword, hidePassword;
-    Toolbar toolbar;
+    SharedPreferences sp;
+    DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
 
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     String passwordPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%&*\\-])(?=\\S+$).{8,20}$";
-    String passwordError = "Password must contain " +
-            "\n→ One digit" +
-            "\n→ One lowercase letter" +
-            "\n→ One uppercase letter" +
-            "\n→ Minimum : 8 characters" +
-            "\n→ Maximum : 20 characters" +
-            "\n→ No spaces" +
-            "\n→ A special character from this set : \n     ! @ # $ % & * -";
+    String passwordError = """
+            Password must contain \s
+            → One digit\s
+            → One lowercase letter\s
+            → One uppercase letter\s
+            → Minimum : 8 characters\s
+            → Maximum : 20 characters\s
+            → No spaces\s
+            → A special character from this set :\s
+                 ! @ # $ % & * -""";
+
+    public void checkUser() {
+        String userEmail = emailLogin.getText().toString().trim().replace(".","_");
+        String userPassword = passwordLogin.getText().toString();
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
+        Query checkUserDatabase = reference.orderByChild("email").equalTo(userEmail);
+
+        checkUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    emailLogin.setError(null);
+                    String passwordDB = snapshot.child(userEmail).child("password").getValue(String.class);
+
+                    if (!Objects.equals(passwordDB, userPassword)) {
+                        passwordLogin.setError(null);
+                        Intent homeActivity = new Intent(MainActivity.this, HomeActivity.class);
+                        startActivity(homeActivity);
+
+                        Toast.makeText(MainActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                    } else {
+                        passwordLogin.setError("Invalid Password");
+                        passwordLogin.requestFocus();
+                    }
+                } else {
+                    emailLogin.setError("Wrong Email");
+                    emailLogin.requestFocus();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +122,8 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+        sp = getSharedPreferences(ConstantSP.PREF, MODE_PRIVATE);
+
         login = findViewById(R.id.login_button);
         signup = findViewById(R.id.signUpText);
         forgetPassword = findViewById(R.id.forgot_password_text);
@@ -98,8 +140,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 passwordLogin.setTransformationMethod(null);
-                showPassword.setVisibility(v.INVISIBLE);
-                hidePassword.setVisibility(v.VISIBLE);
+                showPassword.setVisibility(View.INVISIBLE);
+                hidePassword.setVisibility(View.VISIBLE);
             }
         });
 
@@ -107,8 +149,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 passwordLogin.setTransformationMethod(new PasswordTransformationMethod());
-                showPassword.setVisibility(v.VISIBLE);
-                hidePassword.setVisibility(v.INVISIBLE);
+                showPassword.setVisibility(View.VISIBLE);
+                hidePassword.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -122,6 +164,38 @@ public class MainActivity extends AppCompatActivity {
                     passwordLogin.setError(passwordError);
                 } else {
                     checkUser();
+
+                    Query getUserDetails = reference.orderByChild("email").equalTo(emailLogin.getText().toString().trim().replace(".","_"));
+
+                    getUserDetails.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.exists()) {
+                                for (DataSnapshot userSnapshot : snapshot.getChildren()) {
+                                    String sNAME = userSnapshot.child("name").getValue(String.class);
+                                    /*String sEMAIL = userSnapshot.getKey().replace("_",".");
+                                    String sGENDER = userSnapshot.getKey();
+                                    String sCOUNTRY = userSnapshot.getKey();*/
+                                    String sEMAIL = userSnapshot.child("email").getValue(String.class).replace("_", ".");
+                                    String sGENDER = userSnapshot.child("gender").getValue(String.class);
+                                    String sCOUNTRY = userSnapshot.child("country").getValue(String.class);
+
+                                    sp.edit().putString(ConstantSP.NAME, sNAME).apply();
+                                    sp.edit().putString(ConstantSP.EMAIL, sEMAIL).apply();
+                                    sp.edit().putString(ConstantSP.GENDER, sGENDER).apply();
+                                    sp.edit().putString(ConstantSP.COUNTRY, sCOUNTRY).apply();
+
+                                    Log.d("SP_VALUES", "Name: " + sNAME + ", Email: " + sEMAIL + ", Gender: " + sGENDER + ", Country: " + sCOUNTRY);
+
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
                 }
             }
         });
@@ -165,41 +239,5 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void checkUser() {
-        String userEmail = emailLogin.getText().toString().trim().replace(".","_"),
-               userPassword = passwordLogin.getText().toString();
 
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
-        Query checkUserDatabase = reference.orderByChild("email").equalTo(userEmail);
-
-        checkUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    emailLogin.setError(null);
-                    String passwordDB = snapshot.child(userEmail).child("password").getValue(String.class);
-
-                    if (!Objects.equals(passwordDB, userPassword)) {
-                        passwordLogin.setError(null);
-                        Intent homeActivity = new Intent(MainActivity.this, HomeActivity.class);
-                        startActivity(homeActivity);
-
-                        Toast.makeText(MainActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                    } else {
-                        passwordLogin.setError("Invalid Password");
-                        passwordLogin.requestFocus();
-                    }
-                } else {
-                    emailLogin.setError("Wrong Email");
-                    emailLogin.requestFocus();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-    }
 }
