@@ -37,6 +37,9 @@ import com.asana.mate.MainActivity;
 import com.asana.mate.R;
 import com.asana.mate.SignUpActivity;
 import com.asana.mate.databinding.FragmentProfileBinding;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -50,6 +53,7 @@ public class ProfileFragment extends Fragment {
 
     Integer countryPosition, selectedGenderID;
     String savedCountry;
+    String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
     EditText nameBox, emailBox, passwordBox, confirmPasswordBox;
     Spinner countryBox;
@@ -58,7 +62,7 @@ public class ProfileFragment extends Fragment {
     TextView passwordText, confirmPasswordText;
     FrameLayout passwordFrame, confirmPasswordFrame;
     ImageView hidePassword, showPassword, showConfirmPassword, hideConfirmPassword;
-    Button submitButton, editProfile, logout;
+    Button submitButton, editProfile, logout, deleteAccount;
     ArrayList<String> countryNames = new ArrayList<>();
 
     SharedPreferences sp ;
@@ -110,6 +114,7 @@ public class ProfileFragment extends Fragment {
         submitButton = binding.profileSubmitButton;
         editProfile = binding.profileEditButton;
         logout = binding.profileLogoutButton;
+        deleteAccount = binding.profileDeleteAccount;
 
 
         nameBox.setText(sp.getString(ConstantSP.NAME,""));
@@ -198,6 +203,55 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        deleteAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AlertDialog.Builder deleteAccount = new AlertDialog.Builder(getActivity());
+                deleteAccount.setTitle("Delete Account");
+                deleteAccount.setIcon(R.drawable.asanamate_logo1);
+                deleteAccount.setMessage("Are you sure?" +
+                        "\nYou want to delete your account?");
+
+                deleteAccount.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        String userName = sp.getString(ConstantSP.NAME, "");
+
+                        reference.child(userName).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+
+                                if (task.isSuccessful()) {
+
+                                    sp.edit().clear().apply();
+
+                                    startActivity(new Intent(getActivity(), MainActivity.class));
+
+                                } else {
+
+                                    Snackbar.make(root, "Account could not be deleted, please contact developer", Snackbar.LENGTH_SHORT).show();
+
+                                }
+                            }
+                        });
+
+                    }
+                });
+
+                deleteAccount.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                deleteAccount.show();
+
+            }
+        });
+
         showPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -255,76 +309,164 @@ public class ProfileFragment extends Fragment {
                 String originalEmail = sp.getString(ConstantSP.EMAIL, "");
                 String newEmail = emailBox.getText().toString().trim().replace(".", "_");
 
-                if (!originalEmail.equals(newEmail)) {
-                    String finalGender = gender;
-                    reference.orderByChild("email").equalTo(newEmail).addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if (snapshot.exists()) {
+                String oldName = sp.getString(ConstantSP.NAME, "");
+
+                if (!oldName.equals(name)) {
+
+                    reference.child(oldName).removeValue();
+
+                    if (!originalEmail.equals(newEmail)) {
+
+                        String finalGender = gender;
+
+                        reference.orderByChild("email").equalTo(newEmail).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                if (snapshot.exists()) {
 
                                 emailBox.setError("This mail is already linked to another account");
                                 emailBox.requestFocus();
 
-                            } else {
-
-                                if (password.equals(confirmPassword)) {
-
-                                    sp.edit().putString(ConstantSP.NAME, name).apply();
-                                    sp.edit().putString(ConstantSP.EMAIL, email).apply();
-                                    sp.edit().putString(ConstantSP.PASSWORD, password).apply();
-                                    sp.edit().putString(ConstantSP.CONFIRMPASSWORD, confirmPassword).apply();
-                                    sp.edit().putString(ConstantSP.GENDER, finalGender).apply();
-                                    sp.edit().putString(ConstantSP.COUNTRY, country).apply();
-
-                                    HelperClass helperClass = new HelperClass(name, email, password, confirmPassword, finalGender, country);
-                                    reference.child(name).setValue(helperClass);
-
-
-                                    Toast.makeText(getActivity(), "Details updated successfully!!", Toast.LENGTH_SHORT).show();
-                                    requireActivity().onBackPressed();
-
-                                    setData(false);
-
                                 } else {
 
-                                    confirmPasswordBox.setError("Password and Confirm Password does not match");
+                                    if (password.equals(confirmPassword)) {
+
+                                        sp.edit().putString(ConstantSP.NAME, name).apply();
+                                        sp.edit().putString(ConstantSP.EMAIL, email).apply();
+                                        sp.edit().putString(ConstantSP.PASSWORD, password).apply();
+                                        sp.edit().putString(ConstantSP.CONFIRMPASSWORD, confirmPassword).apply();
+                                        sp.edit().putString(ConstantSP.GENDER, finalGender).apply();
+                                        sp.edit().putString(ConstantSP.COUNTRY, country).apply();
+
+                                        HelperClass helperClass = new HelperClass(name, email, password, confirmPassword, finalGender, country);
+                                        reference.child(name).setValue(helperClass);
+
+
+                                        Toast.makeText(getActivity(), "Details updated successfully!!", Toast.LENGTH_SHORT).show();
+                                        requireActivity().onBackPressed();
+
+                                        setData(false);
+
+                                    } else {
+
+                                        confirmPasswordBox.setError("Password and Confirm Password does not match");
+
+                                    }
+
 
                                 }
 
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
 
                             }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
-                } else {
-
-                    if (password.equals(confirmPassword)) {
-
-                        sp.edit().putString(ConstantSP.NAME, name).apply();
-                        sp.edit().putString(ConstantSP.EMAIL, email).apply();
-                        sp.edit().putString(ConstantSP.PASSWORD, password).apply();
-                        sp.edit().putString(ConstantSP.CONFIRMPASSWORD, confirmPassword).apply();
-                        sp.edit().putString(ConstantSP.GENDER, gender).apply();
-                        sp.edit().putString(ConstantSP.COUNTRY, country).apply();
-
-                        HelperClass helperClass = new HelperClass(name, email, password, confirmPassword, gender, country);
-                        reference.child(name).setValue(helperClass);
-
-
-                        Toast.makeText(getActivity(), "Details updated successfully!!", Toast.LENGTH_SHORT).show();
-                        requireActivity().onBackPressed();
-
-                        setData(false);
-
+                        });
                     } else {
 
-                        confirmPasswordBox.setError("Password and Confirm Password does not match");
+                        if (password.equals(confirmPassword)) {
+
+                            sp.edit().putString(ConstantSP.NAME, name).apply();
+                            sp.edit().putString(ConstantSP.EMAIL, email).apply();
+                            sp.edit().putString(ConstantSP.PASSWORD, password).apply();
+                            sp.edit().putString(ConstantSP.CONFIRMPASSWORD, confirmPassword).apply();
+                            sp.edit().putString(ConstantSP.GENDER, gender).apply();
+                            sp.edit().putString(ConstantSP.COUNTRY, country).apply();
+
+                            HelperClass helperClass = new HelperClass(name, email, password, confirmPassword, gender, country);
+                            reference.child(name).setValue(helperClass);
+
+
+                            Toast.makeText(getActivity(), "Details updated successfully!!", Toast.LENGTH_SHORT).show();
+                            requireActivity().onBackPressed();
+
+                            setData(false);
+
+                        } else {
+
+                            confirmPasswordBox.setError("Password and Confirm Password does not match");
+
+                        }
 
                     }
+
+                } else {
+
+                    if (!originalEmail.equals(newEmail)) {
+                        String finalGender = gender;
+                        reference.orderByChild("email").equalTo(newEmail).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if (snapshot.exists()) {
+
+                                    emailBox.setError("This mail is already linked to another account");
+                                    emailBox.requestFocus();
+
+                                } else {
+
+                                    if (password.equals(confirmPassword)) {
+
+                                        sp.edit().putString(ConstantSP.NAME, name).apply();
+                                        sp.edit().putString(ConstantSP.EMAIL, email).apply();
+                                        sp.edit().putString(ConstantSP.PASSWORD, password).apply();
+                                        sp.edit().putString(ConstantSP.CONFIRMPASSWORD, confirmPassword).apply();
+                                        sp.edit().putString(ConstantSP.GENDER, finalGender).apply();
+                                        sp.edit().putString(ConstantSP.COUNTRY, country).apply();
+
+                                        HelperClass helperClass = new HelperClass(name, email, password, confirmPassword, finalGender, country);
+                                        reference.child(name).setValue(helperClass);
+
+
+                                        Toast.makeText(getActivity(), "Details updated successfully!!", Toast.LENGTH_SHORT).show();
+                                        requireActivity().onBackPressed();
+
+                                        setData(false);
+
+                                    } else {
+
+                                        confirmPasswordBox.setError("Password and Confirm Password does not match");
+
+                                    }
+
+
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+                    } else {
+
+                        if (password.equals(confirmPassword)) {
+
+                            sp.edit().putString(ConstantSP.NAME, name).apply();
+                            sp.edit().putString(ConstantSP.EMAIL, email).apply();
+                            sp.edit().putString(ConstantSP.PASSWORD, password).apply();
+                            sp.edit().putString(ConstantSP.CONFIRMPASSWORD, confirmPassword).apply();
+                            sp.edit().putString(ConstantSP.GENDER, gender).apply();
+                            sp.edit().putString(ConstantSP.COUNTRY, country).apply();
+
+                            HelperClass helperClass = new HelperClass(name, email, password, confirmPassword, gender, country);
+                            reference.child(name).setValue(helperClass);
+
+
+                            Toast.makeText(getActivity(), "Details updated successfully!!", Toast.LENGTH_SHORT).show();
+                            requireActivity().onBackPressed();
+
+                            setData(false);
+
+                        } else {
+
+                            confirmPasswordBox.setError("Password and Confirm Password does not match");
+
+                        }
+
+                    }
+
                 }
 
             }

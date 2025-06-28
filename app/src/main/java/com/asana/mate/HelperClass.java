@@ -7,6 +7,7 @@ public class HelperClass {
     String password;
     String confirmPassword;
     String gender;
+    String country;
 
     public String getCountry() {
         return country;
@@ -55,8 +56,6 @@ public class HelperClass {
     public void setName(String name) {
         this.name = name;
     }
-
-    String country;
 
     public HelperClass(String name, String email, String password, String confirmPassword, String gender, String country) {
         this.name = name;

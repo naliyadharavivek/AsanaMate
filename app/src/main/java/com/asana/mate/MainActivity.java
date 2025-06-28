@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
                 } else {
-                    emailLogin.setError("Wrong Email");
+                    emailLogin.setError("Account does not exist!! Please create one!!");
                     emailLogin.requestFocus();
                 }
             }
