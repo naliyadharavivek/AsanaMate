@@ -38,9 +38,11 @@ public class SplashActivity extends AppCompatActivity {
                 if (sp.getString(ConstantSP.NAME, "").equals("")) {
                     Intent mainActivity = new Intent(SplashActivity.this, MainActivity.class);
                     startActivity(mainActivity);
+                    finish();
                 } else {
                     Intent homeActivity = new Intent(SplashActivity.this, HomeActivity.class);
                     startActivity(homeActivity);
+                    finish();
                 }
 
             }

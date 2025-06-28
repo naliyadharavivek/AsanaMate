@@ -38,6 +38,7 @@ public class SignUpActivity extends AppCompatActivity {
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     String passwordPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%&*\\-])(?=\\S+$).{8,20}$";
     String passwordError;
+    Integer selectedGenderID;
     ArrayList<String> countryNames = new ArrayList<>();
 
 
@@ -102,7 +103,6 @@ public class SignUpActivity extends AppCompatActivity {
         showConfirmPassword = findViewById(R.id.signup_confirm_view);
         hideConfirmPassword = findViewById(R.id.signup_confirm_hide);
 
-
         String[] countryCodes = Locale.getISOCountries();
         for (String countryCode : countryCodes) {
             Locale countryLocale = new Locale("", countryCode);
@@ -166,7 +166,7 @@ public class SignUpActivity extends AppCompatActivity {
                             if (snapshot.exists()) {
                                 emailSignup.setError("Email already exists!!");
                             } else {
-                                Integer selectedGenderID = genderSignup.getCheckedRadioButtonId();
+                                selectedGenderID = genderSignup.getCheckedRadioButtonId();
 
                                 String name = nameSignup.getText().toString();
                                 String email = emailSignup.getText().toString().replace(".", "_");
@@ -198,8 +198,7 @@ public class SignUpActivity extends AppCompatActivity {
                     nameSignup.setError("Name can not be blank");
                 } else if (!emailSignup.getText().toString().trim().matches(emailPattern)) {
                     emailSignup.setError("Enter Valid Email");
-                }
-                else if (emailSignup.getText().toString().trim().isEmpty()) {
+                } else if (emailSignup.getText().toString().trim().isEmpty()) {
                     emailSignup.setError("Email can not be blank");
                 } else if (!passwordSignup.getText().toString().trim().matches(passwordPattern)) {
                     passwordSignup.setError(passwordError);

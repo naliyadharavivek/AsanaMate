@@ -48,23 +48,11 @@
             <ImageView
                 android:id="@+id/signup_hide"
                 android:visibility="invisible"
-                android:layout_marginTop="@dimen/_7sdp"
-                android:layout_gravity="center_vertical|end"
-                android:padding="@dimen/_2sdp"
-                android:layout_marginRight="@dimen/_50sdp"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:src="@drawable/hide"/>
+                style="@style/hide_eye2"/>
 
             <ImageView
                 android:id="@+id/signup_view"
-                android:layout_marginTop="@dimen/_7sdp"
-                android:layout_gravity="center_vertical|end"
-                android:padding="@dimen/_2sdp"
-                android:layout_marginRight="@dimen/_50sdp"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:src="@drawable/view"/>
+                style="@style/show_eye2"/>
 
         </FrameLayout>
 
@@ -81,31 +69,18 @@
             <ImageView
                 android:id="@+id/signup_confirm_hide"
                 android:visibility="invisible"
-                android:layout_marginTop="@dimen/_7sdp"
-                android:layout_gravity="center_vertical|end"
-                android:padding="@dimen/_2sdp"
-                android:layout_marginRight="@dimen/_50sdp"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:src="@drawable/hide"/>
+                style="@style/hide_eye2"/>
 
             <ImageView
                 android:id="@+id/signup_confirm_view"
-                android:layout_marginTop="@dimen/_7sdp"
-                android:layout_gravity="center_vertical|end"
-                android:padding="@dimen/_2sdp"
-                android:layout_marginRight="@dimen/_50sdp"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:src="@drawable/view"/>
+                style="@style/show_eye2"/>
 
         </FrameLayout>
 
 
         <RadioGroup
             android:id="@+id/signup_gender"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/editText_login2"
             android:layout_gravity="center"
             android:layout_marginHorizontal="@dimen/_20sdp"
             android:layout_marginTop="@dimen/_15sdp"

@@ -53,7 +53,7 @@
                 android:layout_marginRight="@dimen/_50sdp"
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
-                android:src="@drawable/hide"/>
+                android:src="@drawable/hide_black"/>
 
             <ImageView
                 android:id="@+id/signin_view"
@@ -63,7 +63,7 @@
                 android:layout_marginRight="@dimen/_50sdp"
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
-                android:src="@drawable/view"/>
+                android:src="@drawable/view_black"/>
 
 
         </FrameLayout>

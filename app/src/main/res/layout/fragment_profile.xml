@@ -1,157 +1,200 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ui.profile.ProfileFragment">
 
-    <TextView
-        style="@style/text_20_bold"
-        android:textSize="@dimen/_30sdp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/_50sdp"
-        android:text="Profile" />
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
 
         <TextView
             android:id="@+id/profile_name_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:layout_gravity="left"
+            android:layout_gravity="start"
             android:textSize="@dimen/_20sdp"
-            android:layout_marginHorizontal="@dimen/_30sdp"
+            android:layout_marginHorizontal="@dimen/_20sdp"
             style="@style/textView_login"
             android:text="Name" />
 
-        <TextView
-            android:id="@+id/profile_name_show"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginHorizontal="@dimen/_20sdp"
-            android:background="@drawable/custom_border"
-            android:padding="@dimen/_10sdp"
-            android:textSize="@dimen/_15sdp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        <EditText
+            android:id="@+id/profile_name_box"
+            style="@style/editText_login2"
+            android:inputType="textPersonName" />
 
         <TextView
-            android:id="@+id/profile_email_text"
+                android:id="@+id/profile_email_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_gravity="start"
+                android:textSize="@dimen/_20sdp"
+                android:layout_marginHorizontal="@dimen/_20sdp"
+                style="@style/textView_login"
+                android:text="Email" />
+
+        <EditText
+            android:id="@+id/profile_email_box"
+            style="@style/editText_login2"
+            android:inputType="textEmailAddress" />
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/profile_password_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:layout_gravity="left"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_gravity="start"
             android:textSize="@dimen/_20sdp"
-            android:layout_marginHorizontal="@dimen/_30sdp"
+            android:layout_marginHorizontal="@dimen/_20sdp"
             style="@style/textView_login"
-            android:text="Email" />
+            android:text="Password" />
+
+        <FrameLayout
+            android:visibility="gone"
+            android:id="@+id/profile_password_frame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/profile_password_box"
+                style="@style/editText_login2"
+                android:inputType="textPassword" />
+
+            <ImageView
+                android:id="@+id/profile_password_hide"
+                android:visibility="invisible"
+                style="@style/hide_eye" />
+
+            <ImageView
+                android:id="@+id/profile_password_show"
+                style="@style/show_eye" />
+
+        </FrameLayout>
 
         <TextView
-            android:id="@+id/profile_email_show"
-            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:id="@+id/profile_confirmPassword_text"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_gravity="start"
+            android:textSize="@dimen/_20sdp"
             android:layout_marginHorizontal="@dimen/_20sdp"
-            android:background="@drawable/custom_border"
-            android:padding="@dimen/_10sdp"
-            android:textSize="@dimen/_15sdp" />
+            style="@style/textView_login"
+            android:text="Confirm Password" />
 
-    </LinearLayout>
+        <FrameLayout
+            android:visibility="gone"
+            android:id="@+id/profile_confirmPassword_frame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+            <EditText
+                android:id="@+id/profile_confirmPassword_box"
+                style="@style/editText_login2"
+                android:inputType="textPassword" />
+
+            <ImageView
+                android:id="@+id/profile_Confirmpassword_hide"
+                android:visibility="invisible"
+                style="@style/hide_eye" />
+
+            <ImageView
+                android:id="@+id/profile_Confirmpassword_show"
+                style="@style/show_eye" />
+
+        </FrameLayout>
 
         <TextView
             android:id="@+id/profile_gender_text"
+            style="@style/textView_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:layout_gravity="left"
-            android:textSize="@dimen/_20sdp"
-            android:layout_marginHorizontal="@dimen/_30sdp"
-            style="@style/textView_login"
-            android:text="Gender" />
+            android:layout_gravity="start"
+            android:layout_marginHorizontal="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:text="Gender"
+            android:textSize="@dimen/_20sdp" />
 
-        <TextView
-            android:id="@+id/profile_gender_show"
+        <RadioGroup
+            android:id="@+id/profile_gender"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_gravity="center"
             android:layout_marginHorizontal="@dimen/_20sdp"
-            android:background="@drawable/custom_border"
-            android:padding="@dimen/_10sdp"
-            android:textSize="@dimen/_15sdp" />
+            android:orientation="horizontal">
 
-    </LinearLayout>
+            <RadioButton
+                android:id="@+id/profile_male"
+                style="@style/RadioButton"
+                android:layout_marginRight="@dimen/_50sdp"
+                android:text="Male" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+            <RadioButton
+                android:id="@+id/profile_female"
+                style="@style/RadioButton"
+                android:text="Female" />
+
+        </RadioGroup>
 
         <TextView
             android:id="@+id/profile_country_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:layout_gravity="left"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_gravity="start"
             android:textSize="@dimen/_20sdp"
-            android:layout_marginHorizontal="@dimen/_30sdp"
+            android:layout_marginHorizontal="@dimen/_20sdp"
             style="@style/textView_login"
             android:text="Country" />
 
-        <TextView
-            android:id="@+id/profile_country_show"
+        <Spinner
+            android:id="@+id/profile_country"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginHorizontal="@dimen/_20sdp"
             android:background="@drawable/custom_border"
-            android:padding="@dimen/_10sdp"
-            android:textSize="@dimen/_15sdp" />
+            android:minHeight="@dimen/_48sdp"
+            android:layout_marginHorizontal="@dimen/_20sdp" />
+
+        <Button
+            android:id="@+id/profile_submit_button"
+            android:visibility="gone"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_25sdp"
+            style="@style/button_login2"
+            android:text="Submit"
+            android:textAllCaps="true" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_30sdp">
+
+            <Button
+                android:id="@+id/profile_edit_button"
+                android:layout_marginRight="@dimen/_10sdp"
+                style="@style/button_login2"
+                android:layout_weight="1"
+                android:text="Edit" />
+
+            <Button
+                android:id="@+id/profile_logout_button"
+                android:layout_marginLeft="@dimen/_10sdp"
+                style="@style/button_login2"
+                android:layout_weight="1"
+                android:text="Logout" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_30sdp">
-
-        <Button
-            android:id="@+id/profile_edit_button"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginRight="@dimen/_10sdp"
-            style="@style/textView_login"
-            android:layout_weight="1"
-            android:text="Edit" />
-
-        <Button
-            android:id="@+id/profile_logout_button"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/_10sdp"
-            style="@style/textView_login"
-            android:layout_weight="1"
-            android:text="Logout" />
-
-    </LinearLayout>
-
-</LinearLayout>
+</ScrollView>

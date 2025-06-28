@@ -36,9 +36,9 @@ import java.util.Objects;
 public class MainActivity extends AppCompatActivity {
 
     Button login;
-    ImageButton google,facebook;
-    TextView signup,forgetPassword,google1;
-    EditText emailLogin,passwordLogin;
+    ImageButton google, facebook;
+    TextView signup, forgetPassword, google1, facebook1;
+    EditText emailLogin, passwordLogin;
     ImageView showPassword, hidePassword;
     SharedPreferences sp;
     DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
@@ -68,24 +68,32 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     emailLogin.setError(null);
-                    String passwordDB = snapshot.child(userEmail).child("password").getValue(String.class);
 
-                    if (!Objects.equals(passwordDB, userPassword)) {
-                        passwordLogin.setError(null);
-                        Intent homeActivity = new Intent(MainActivity.this, HomeActivity.class);
-                        startActivity(homeActivity);
+                    Query passwordDB = reference.orderByChild("password").equalTo(userPassword);
+                    passwordDB.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.exists()) {
+                                passwordLogin.setError(null);
+                                Intent homeActivity = new Intent(MainActivity.this, HomeActivity.class);
+                                startActivity(homeActivity);
+                                finish();
+                                Toast.makeText(MainActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                            } else {
+                                passwordLogin.setError("Invalid Password");
+                                passwordLogin.requestFocus();
+                            }
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
 
-                        Toast.makeText(MainActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                    } else {
-                        passwordLogin.setError("Invalid Password");
-                        passwordLogin.requestFocus();
-                    }
+                        }
+                    });
                 } else {
                     emailLogin.setError("Wrong Email");
                     emailLogin.requestFocus();
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
@@ -130,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
         google = findViewById(R.id.btnGoogle);
         google1 = findViewById(R.id.google_logo_text);
         facebook = findViewById(R.id.btnFacebook);
+        facebook1 = findViewById(R.id.facebook_logo_text);
         emailLogin = findViewById(R.id.email_box_login);
         passwordLogin = findViewById(R.id.password_box);
         showPassword = findViewById(R.id.signin_view);
@@ -173,19 +182,20 @@ public class MainActivity extends AppCompatActivity {
                             if (snapshot.exists()) {
                                 for (DataSnapshot userSnapshot : snapshot.getChildren()) {
                                     String sNAME = userSnapshot.child("name").getValue(String.class);
-                                    /*String sEMAIL = userSnapshot.getKey().replace("_",".");
-                                    String sGENDER = userSnapshot.getKey();
-                                    String sCOUNTRY = userSnapshot.getKey();*/
                                     String sEMAIL = userSnapshot.child("email").getValue(String.class).replace("_", ".");
                                     String sGENDER = userSnapshot.child("gender").getValue(String.class);
+                                    String sPASSWORD = userSnapshot.child("password").getValue(String.class);
+                                    String sCONFIRMPASSWORD = userSnapshot.child("confirmPassword").getValue(String.class);
                                     String sCOUNTRY = userSnapshot.child("country").getValue(String.class);
 
                                     sp.edit().putString(ConstantSP.NAME, sNAME).apply();
                                     sp.edit().putString(ConstantSP.EMAIL, sEMAIL).apply();
+                                    sp.edit().putString(ConstantSP.PASSWORD, sPASSWORD).apply();
+                                    sp.edit().putString(ConstantSP.CONFIRMPASSWORD, sCONFIRMPASSWORD).apply();
                                     sp.edit().putString(ConstantSP.GENDER, sGENDER).apply();
                                     sp.edit().putString(ConstantSP.COUNTRY, sCOUNTRY).apply();
 
-                                    Log.d("SP_VALUES", "Name: " + sNAME + ", Email: " + sEMAIL + ", Gender: " + sGENDER + ", Country: " + sCOUNTRY);
+                                    Log.d("SP_VALUES", "Name: " + sNAME + ", Email: " + sEMAIL + "Password: " + sPASSWORD + "Confirm Password :" + sCONFIRMPASSWORD + ", Gender: " + sGENDER + ", Country: " + sCOUNTRY);
 
                                 }
                             }
@@ -213,28 +223,35 @@ public class MainActivity extends AppCompatActivity {
         forgetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "forgetPassword", Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(view, "Coming Soon! Stay tuned!!!", Snackbar.LENGTH_SHORT).show();
             }
         });
 
         google.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "google", Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(view, "Coming Soon! Stay tuned!!!", Snackbar.LENGTH_SHORT).show();
             }
         });
 
         google1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "googletext", Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(view, "Coming Soon! Stay tuned!!!", Snackbar.LENGTH_SHORT).show();
             }
         });
 
         facebook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "facebook", Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(view, "Coming Soon! Stay tuned!!!", Snackbar.LENGTH_SHORT).show();
+            }
+        });
+
+        facebook1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Coming Soon! Stay tuned!!!", Snackbar.LENGTH_SHORT).show();
             }
         });
     }
