@@ -47,23 +47,11 @@
             <ImageView
                 android:id="@+id/signin_hide"
                 android:visibility="invisible"
-                android:layout_marginTop="@dimen/_7sdp"
-                android:layout_gravity="center_vertical|end"
-                android:padding="@dimen/_2sdp"
-                android:layout_marginRight="@dimen/_50sdp"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:src="@drawable/hide_black"/>
+                style="@style/hide_eye2" />
 
             <ImageView
                 android:id="@+id/signin_view"
-                android:layout_marginTop="@dimen/_7sdp"
-                android:layout_gravity="center_vertical|end"
-                android:padding="@dimen/_2sdp"
-                android:layout_marginRight="@dimen/_50sdp"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:src="@drawable/view_black"/>
+                style="@style/show_eye2" />
 
 
         </FrameLayout>

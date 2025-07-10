@@ -17,9 +17,9 @@
             android:id="@+id/profile_name_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="start"
+            android:layout_gravity="left"
             android:textSize="@dimen/_20sdp"
-            android:layout_marginHorizontal="@dimen/_20sdp"
+            android:layout_marginLeft="@dimen/_32sdp"
             style="@style/textView_login"
             android:text="Name" />
 
@@ -35,7 +35,7 @@
                 android:layout_marginTop="@dimen/_15sdp"
                 android:layout_gravity="start"
                 android:textSize="@dimen/_20sdp"
-                android:layout_marginHorizontal="@dimen/_20sdp"
+                android:layout_marginHorizontal="@dimen/_32sdp"
                 style="@style/textView_login"
                 android:text="Email" />
 
@@ -52,7 +52,7 @@
             android:layout_marginTop="@dimen/_15sdp"
             android:layout_gravity="start"
             android:textSize="@dimen/_20sdp"
-            android:layout_marginHorizontal="@dimen/_20sdp"
+            android:layout_marginHorizontal="@dimen/_32sdp"
             style="@style/textView_login"
             android:text="Password" />
 
@@ -86,7 +86,7 @@
             android:layout_marginTop="@dimen/_15sdp"
             android:layout_gravity="start"
             android:textSize="@dimen/_20sdp"
-            android:layout_marginHorizontal="@dimen/_20sdp"
+            android:layout_marginHorizontal="@dimen/_32sdp"
             style="@style/textView_login"
             android:text="Confirm Password" />
 
@@ -118,7 +118,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:layout_marginHorizontal="@dimen/_20sdp"
+            android:layout_marginHorizontal="@dimen/_32sdp"
             android:layout_marginTop="@dimen/_15sdp"
             android:text="Gender"
             android:textSize="@dimen/_20sdp" />
@@ -151,7 +151,7 @@
             android:layout_marginTop="@dimen/_15sdp"
             android:layout_gravity="start"
             android:textSize="@dimen/_20sdp"
-            android:layout_marginHorizontal="@dimen/_20sdp"
+            android:layout_marginHorizontal="@dimen/_32sdp"
             style="@style/textView_login"
             android:text="Country" />
 

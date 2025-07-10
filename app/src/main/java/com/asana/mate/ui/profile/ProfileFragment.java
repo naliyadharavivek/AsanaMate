@@ -118,7 +118,7 @@ public class ProfileFragment extends Fragment {
 
 
         nameBox.setText(sp.getString(ConstantSP.NAME,""));
-        emailBox.setText(sp.getString(ConstantSP.EMAIL,"").replace("_", "."));
+        emailBox.setText(sp.getString(ConstantSP.EMAIL,""));
         passwordBox.setText(sp.getString(ConstantSP.PASSWORD,""));
         confirmPasswordBox.setText(sp.getString(ConstantSP.CONFIRMPASSWORD,""));
 
@@ -295,7 +295,7 @@ public class ProfileFragment extends Fragment {
                 selectedGenderID = genderProfile.getCheckedRadioButtonId();
 
                 String name = nameBox.getText().toString();
-                String email = emailBox.getText().toString().replace(".", "_");
+                String email = emailBox.getText().toString();
                 String password = passwordBox.getText().toString();
                 String confirmPassword = confirmPasswordBox.getText().toString();
                 String country = countryBox.getSelectedItem().toString();
@@ -306,173 +306,92 @@ public class ProfileFragment extends Fragment {
                     gender = selectedGender.getText().toString();
                 }
 
-                String originalEmail = sp.getString(ConstantSP.EMAIL, "");
-                String newEmail = emailBox.getText().toString().trim().replace(".", "_");
+                String oldEmail = sp.getString(ConstantSP.EMAIL, "");
 
                 String oldName = sp.getString(ConstantSP.NAME, "");
 
                 if (!oldName.equals(name)) {
-
                     reference.child(oldName).removeValue();
 
-                    if (!originalEmail.equals(newEmail)) {
-
-                        String finalGender = gender;
-
-                        reference.orderByChild("email").equalTo(newEmail).addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                                if (snapshot.exists()) {
-
-                                emailBox.setError("This mail is already linked to another account");
-                                emailBox.requestFocus();
-
-                                } else {
-
-                                    if (password.equals(confirmPassword)) {
-
-                                        sp.edit().putString(ConstantSP.NAME, name).apply();
-                                        sp.edit().putString(ConstantSP.EMAIL, email).apply();
-                                        sp.edit().putString(ConstantSP.PASSWORD, password).apply();
-                                        sp.edit().putString(ConstantSP.CONFIRMPASSWORD, confirmPassword).apply();
-                                        sp.edit().putString(ConstantSP.GENDER, finalGender).apply();
-                                        sp.edit().putString(ConstantSP.COUNTRY, country).apply();
-
-                                        HelperClass helperClass = new HelperClass(name, email, password, confirmPassword, finalGender, country);
-                                        reference.child(name).setValue(helperClass);
-
-
-                                        Toast.makeText(getActivity(), "Details updated successfully!!", Toast.LENGTH_SHORT).show();
-                                        requireActivity().onBackPressed();
-
-                                        setData(false);
-
-                                    } else {
-
-                                        confirmPasswordBox.setError("Password and Confirm Password does not match");
-
-                                    }
-
-
-                                }
-
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-
-                            }
-                        });
-                    } else {
-
-                        if (password.equals(confirmPassword)) {
-
-                            sp.edit().putString(ConstantSP.NAME, name).apply();
-                            sp.edit().putString(ConstantSP.EMAIL, email).apply();
-                            sp.edit().putString(ConstantSP.PASSWORD, password).apply();
-                            sp.edit().putString(ConstantSP.CONFIRMPASSWORD, confirmPassword).apply();
-                            sp.edit().putString(ConstantSP.GENDER, gender).apply();
-                            sp.edit().putString(ConstantSP.COUNTRY, country).apply();
-
-                            HelperClass helperClass = new HelperClass(name, email, password, confirmPassword, gender, country);
-                            reference.child(name).setValue(helperClass);
-
-
-                            Toast.makeText(getActivity(), "Details updated successfully!!", Toast.LENGTH_SHORT).show();
-                            requireActivity().onBackPressed();
-
-                            setData(false);
-
-                        } else {
-
-                            confirmPasswordBox.setError("Password and Confirm Password does not match");
-
-                        }
-
-                    }
-
+                    authenticateEmail(name, email, oldEmail, password, confirmPassword, country, gender);
                 } else {
-
-                    if (!originalEmail.equals(newEmail)) {
-                        String finalGender = gender;
-                        reference.orderByChild("email").equalTo(newEmail).addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                if (snapshot.exists()) {
-
-                                    emailBox.setError("This mail is already linked to another account");
-                                    emailBox.requestFocus();
-
-                                } else {
-
-                                    if (password.equals(confirmPassword)) {
-
-                                        sp.edit().putString(ConstantSP.NAME, name).apply();
-                                        sp.edit().putString(ConstantSP.EMAIL, email).apply();
-                                        sp.edit().putString(ConstantSP.PASSWORD, password).apply();
-                                        sp.edit().putString(ConstantSP.CONFIRMPASSWORD, confirmPassword).apply();
-                                        sp.edit().putString(ConstantSP.GENDER, finalGender).apply();
-                                        sp.edit().putString(ConstantSP.COUNTRY, country).apply();
-
-                                        HelperClass helperClass = new HelperClass(name, email, password, confirmPassword, finalGender, country);
-                                        reference.child(name).setValue(helperClass);
-
-
-                                        Toast.makeText(getActivity(), "Details updated successfully!!", Toast.LENGTH_SHORT).show();
-                                        requireActivity().onBackPressed();
-
-                                        setData(false);
-
-                                    } else {
-
-                                        confirmPasswordBox.setError("Password and Confirm Password does not match");
-
-                                    }
-
-
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-
-                            }
-                        });
-                    } else {
-
-                        if (password.equals(confirmPassword)) {
-
-                            sp.edit().putString(ConstantSP.NAME, name).apply();
-                            sp.edit().putString(ConstantSP.EMAIL, email).apply();
-                            sp.edit().putString(ConstantSP.PASSWORD, password).apply();
-                            sp.edit().putString(ConstantSP.CONFIRMPASSWORD, confirmPassword).apply();
-                            sp.edit().putString(ConstantSP.GENDER, gender).apply();
-                            sp.edit().putString(ConstantSP.COUNTRY, country).apply();
-
-                            HelperClass helperClass = new HelperClass(name, email, password, confirmPassword, gender, country);
-                            reference.child(name).setValue(helperClass);
-
-
-                            Toast.makeText(getActivity(), "Details updated successfully!!", Toast.LENGTH_SHORT).show();
-                            requireActivity().onBackPressed();
-
-                            setData(false);
-
-                        } else {
-
-                            confirmPasswordBox.setError("Password and Confirm Password does not match");
-
-                        }
-
-                    }
-
+                    authenticateEmail(name, email, oldEmail, password, confirmPassword, country, gender);
                 }
 
             }
         });
 
         return root;
+    }
+
+    private void authenticateEmail(String name, String newEmail, String oldEmail, String password, String confirmPassword, String country, String gender) {
+
+        if (!newEmail.equals(oldEmail)) {
+
+            reference.orderByChild("email").equalTo(newEmail).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        emailBox.setError("This mail is already linked to another account");
+                        emailBox.requestFocus();
+                    } else {
+                        if (password.equals(confirmPassword)) {
+
+                            sp.edit().putString(ConstantSP.NAME, name).apply();
+                            sp.edit().putString(ConstantSP.EMAIL, newEmail).apply();
+                            sp.edit().putString(ConstantSP.PASSWORD, password).apply();
+                            sp.edit().putString(ConstantSP.CONFIRMPASSWORD, confirmPassword).apply();
+                            sp.edit().putString(ConstantSP.GENDER, gender).apply();
+                            sp.edit().putString(ConstantSP.COUNTRY, country).apply();
+
+                            HelperClass helperClass = new HelperClass(name, newEmail, password, confirmPassword, gender, country);
+                            reference.child(name).setValue(helperClass);
+
+
+                            Toast.makeText(getActivity(), "Details updated successfully!!", Toast.LENGTH_SHORT).show();
+                            requireActivity().onBackPressed();
+
+                            setData(false);
+
+                        } else {
+
+                            confirmPasswordBox.setError("Password and Confirm Password does not match");
+
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        } else {
+            if (password.equals(confirmPassword)) {
+
+                sp.edit().putString(ConstantSP.NAME, name).apply();
+                sp.edit().putString(ConstantSP.EMAIL, oldEmail).apply();
+                sp.edit().putString(ConstantSP.PASSWORD, password).apply();
+                sp.edit().putString(ConstantSP.CONFIRMPASSWORD, confirmPassword).apply();
+                sp.edit().putString(ConstantSP.GENDER, gender).apply();
+                sp.edit().putString(ConstantSP.COUNTRY, country).apply();
+
+                HelperClass helperClass = new HelperClass(name, oldEmail, password, confirmPassword, gender, country);
+                reference.child(name).setValue(helperClass);
+
+
+                Toast.makeText(getActivity(), "Details updated successfully!!", Toast.LENGTH_SHORT).show();
+                requireActivity().onBackPressed();
+
+                setData(false);
+
+            } else {
+
+                confirmPasswordBox.setError("Password and Confirm Password does not match");
+
+            }
+        }
+
     }
 
     private void setData(boolean b) {

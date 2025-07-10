@@ -1,5 +1,8 @@
 package com.asana.mate;
 
+import static android.view.View.INVISIBLE;
+import static android.view.View.VISIBLE;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -56,52 +59,6 @@ public class MainActivity extends AppCompatActivity {
             → A special character from this set :\s
                  ! @ # $ % & * -""";
 
-    public void checkUser() {
-        String userEmail = emailLogin.getText().toString().trim().replace(".","_");
-        String userPassword = passwordLogin.getText().toString();
-
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
-        Query checkUserDatabase = reference.orderByChild("email").equalTo(userEmail);
-
-        checkUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    emailLogin.setError(null);
-
-                    Query passwordDB = reference.orderByChild("password").equalTo(userPassword);
-                    passwordDB.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if (snapshot.exists()) {
-                                passwordLogin.setError(null);
-                                Intent homeActivity = new Intent(MainActivity.this, HomeActivity.class);
-                                startActivity(homeActivity);
-                                finish();
-                                Toast.makeText(MainActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                            } else {
-                                passwordLogin.setError("Invalid Password");
-                                passwordLogin.requestFocus();
-                            }
-                        }
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
-                } else {
-                    emailLogin.setError("Account does not exist!! Please create one!!");
-                    emailLogin.requestFocus();
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -147,10 +104,10 @@ public class MainActivity extends AppCompatActivity {
 
         showPassword.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 passwordLogin.setTransformationMethod(null);
-                showPassword.setVisibility(View.INVISIBLE);
-                hidePassword.setVisibility(View.VISIBLE);
+                showPassword.setVisibility(INVISIBLE);
+                hidePassword.setVisibility(VISIBLE);
             }
         });
 
@@ -158,8 +115,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 passwordLogin.setTransformationMethod(new PasswordTransformationMethod());
-                showPassword.setVisibility(View.VISIBLE);
-                hidePassword.setVisibility(View.INVISIBLE);
+                showPassword.setVisibility(VISIBLE);
+                hidePassword.setVisibility(INVISIBLE);
             }
         });
 
@@ -174,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     checkUser();
 
-                    Query getUserDetails = reference.orderByChild("email").equalTo(emailLogin.getText().toString().trim().replace(".","_"));
+                    Query getUserDetails = reference.orderByChild("email").equalTo(emailLogin.getText().toString().trim());
 
                     getUserDetails.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
@@ -182,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
                             if (snapshot.exists()) {
                                 for (DataSnapshot userSnapshot : snapshot.getChildren()) {
                                     String sNAME = userSnapshot.child("name").getValue(String.class);
-                                    String sEMAIL = userSnapshot.child("email").getValue(String.class).replace("_", ".");
+                                    String sEMAIL = userSnapshot.child("email").getValue(String.class);
                                     String sGENDER = userSnapshot.child("gender").getValue(String.class);
                                     String sPASSWORD = userSnapshot.child("password").getValue(String.class);
                                     String sCONFIRMPASSWORD = userSnapshot.child("confirmPassword").getValue(String.class);
@@ -256,5 +213,50 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    public void checkUser() {
+        String userEmail = emailLogin.getText().toString().trim();
+        String userPassword = passwordLogin.getText().toString();
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
+        Query checkUserDatabase = reference.orderByChild("email").equalTo(userEmail);
+
+        checkUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    emailLogin.setError(null);
+
+                    Query passwordDB = reference.orderByChild("password").equalTo(userPassword);
+                    passwordDB.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.exists()) {
+                                passwordLogin.setError(null);
+                                Intent homeActivity = new Intent(MainActivity.this, HomeActivity.class);
+                                startActivity(homeActivity);
+                                finish();
+                                Toast.makeText(MainActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                            } else {
+                                passwordLogin.setError("Invalid Password");
+                                passwordLogin.requestFocus();
+                            }
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                } else {
+                    emailLogin.setError("Account does not exist!! Please create one!!");
+                    emailLogin.requestFocus();
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
 
 }
