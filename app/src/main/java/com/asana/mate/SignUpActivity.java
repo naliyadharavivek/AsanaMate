@@ -160,7 +160,7 @@ public class SignUpActivity extends AppCompatActivity {
                     signupDatabase = FirebaseDatabase.getInstance();
                     reference = signupDatabase.getReference("users");
 
-                    reference.orderByChild("email").equalTo(emailSignup.getText().toString().replace(".", "_")).addListenerForSingleValueEvent(new ValueEventListener() {
+                    reference.orderByChild("email").equalTo(emailSignup.getText().toString()).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             if (snapshot.exists()) {
@@ -169,7 +169,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 selectedGenderID = genderSignup.getCheckedRadioButtonId();
 
                                 String name = nameSignup.getText().toString();
-                                String email = emailSignup.getText().toString().replace(".", "_");
+                                String email = emailSignup.getText().toString();
                                 String password = passwordSignup.getText().toString();
                                 String confirmPassword = confirmPasswordSignup.getText().toString();
                                 String country = countrySignup.getSelectedItem().toString();

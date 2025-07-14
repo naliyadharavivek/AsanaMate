@@ -85,6 +85,13 @@
         <item name="android:textAllCaps">true</item>
     </style>
 
+    <style name="text_12" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textSize">@dimen/_12sdp</item>
+    </style>
+
     <style name="textView_login" parent="Widget.AppCompat.TextView">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>

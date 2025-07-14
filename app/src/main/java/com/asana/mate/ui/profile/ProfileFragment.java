@@ -226,7 +226,7 @@ public class ProfileFragment extends Fragment {
                                 if (task.isSuccessful()) {
 
                                     sp.edit().clear().apply();
-
+                                    Toast.makeText(getActivity(), "Account deleted successfully!!", Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(getActivity(), MainActivity.class));
 
                                 } else {
