@@ -217,46 +217,40 @@ public class MainActivity extends AppCompatActivity {
         String userEmail = emailLogin.getText().toString().trim();
         String userPassword = passwordLogin.getText().toString();
 
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
-        Query checkUserDatabase = reference.orderByChild("email").equalTo(userEmail);
+        reference.orderByChild("email").equalTo(userEmail)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            for (DataSnapshot userSnapshot : snapshot.getChildren()) {
+                                String storedPassword = userSnapshot.child("password").getValue(String.class);
 
-        checkUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    emailLogin.setError(null);
+                                if (storedPassword != null && storedPassword.equals(userPassword)) {
 
-                    Query passwordDB = reference.orderByChild("password").equalTo(userPassword);
-                    passwordDB.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if (snapshot.exists()) {
-                                passwordLogin.setError(null);
-                                Intent homeActivity = new Intent(MainActivity.this, HomeActivity.class);
-                                startActivity(homeActivity);
-                                finish();
-                                Toast.makeText(MainActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                            } else {
-                                passwordLogin.setError("Invalid Password");
-                                passwordLogin.requestFocus();
+                                    sp.edit().putString(ConstantSP.NAME, userSnapshot.child("name").getValue(String.class)).apply();
+                                    sp.edit().putString(ConstantSP.EMAIL, userSnapshot.child("email").getValue(String.class)).apply();
+                                    sp.edit().putString(ConstantSP.GENDER, userSnapshot.child("gender").getValue(String.class)).apply();
+                                    sp.edit().putString(ConstantSP.COUNTRY, userSnapshot.child("country").getValue(String.class)).apply();
+
+                                    startActivity(new Intent(MainActivity.this, HomeActivity.class));
+                                    finish();
+                                    Toast.makeText(MainActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    passwordLogin.setError("Invalid Password");
+                                    passwordLogin.requestFocus();
+                                }
                             }
+                        } else {
+                            emailLogin.setError("Account does not exist! Please sign up.");
+                            emailLogin.requestFocus();
                         }
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
+                    }
 
-                        }
-                    });
-                } else {
-                    emailLogin.setError("Account does not exist!! Please create one!!");
-                    emailLogin.requestFocus();
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Toast.makeText(MainActivity.this, "Database error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
 }
